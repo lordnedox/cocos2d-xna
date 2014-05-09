@@ -1,6 +1,6 @@
 [submodule "MonoGame"]
 	path = MonoGame
-	url = git://github.com/Cocos2DXNA/MonoGame.git
+url=https://github.com/lordnedox/MonoGame.git
 	branch = develop
 
 [submodule "tools/ouya"]
@@ -8,4 +8,3 @@
 	path = tools/ouya
 
 	url = https://github.com/slygamer/ouya-csharp.git
-

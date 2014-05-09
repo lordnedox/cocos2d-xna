@@ -876,7 +876,10 @@ namespace Cocos2D
                                 if (index < 0) continue;
 
                                 var characterSprite = (CCSprite) GetChildByTag(index);
-                                characterSprite.Position = characterSprite.Position + new CCPoint(shift, 0.0f);
+                                if (characterSprite != null) //MARCO Added this if to avoid errors
+                                {
+                                    characterSprite.Position = characterSprite.Position + new CCPoint(shift, 0.0f);
+                                }
                             }
                         }
 

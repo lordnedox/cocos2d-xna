@@ -213,6 +213,12 @@ namespace CocosDenshion
             return SharedMusic.IsPlaying();
         }
 
+        //MARCO ADDED THIS
+        public bool IsBackgroundMusicPaused()
+        {
+            return SharedMusic.IsPaused();
+        }
+
         public void PauseEffect(int fxid) 
         {
             try
@@ -427,5 +433,28 @@ namespace CocosDenshion
         private static Dictionary<int, CCEffectPlayer> s_List = new Dictionary<int,CCEffectPlayer>();
         private static CCMusicPlayer s_Music = new CCMusicPlayer();
         private static CCSimpleAudioEngine _Instance = new CCSimpleAudioEngine();
+
+        //MARCO ADDED OPTION TO ADJUST PITCH OF A LOOP
+        public void SetPitch(int soundId, float pitch)
+        {
+            lock (SharedList)
+            {
+                try
+                {
+                    if (SharedList.ContainsKey(soundId))
+                    {
+                        if (_LoopedSounds.ContainsKey(soundId))
+                        {
+                            SharedList[soundId].SetPitch(pitch);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    CCLog.Log("Unexpected exception while setting pitch value: {0}", pitch);
+                    CCLog.Log(ex.ToString());
+                }
+            }
+        }
     }
 }
