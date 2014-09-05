@@ -431,6 +431,9 @@ namespace Cocos2D
             _isPushed = true;
             Highlighted = true;
             SendActionsForControlEvents(CCControlEvent.TouchDown);
+
+            //CCLog.Log("Button touch began");
+
             return true;
         }
 
