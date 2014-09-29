@@ -691,6 +691,18 @@ namespace Cocos2D
         }
 
         /// <summary>
+        /// Computes the diagonal length of this size. This method will always compute
+        /// the length using Sqrt()
+        /// </summary>
+        public float Diagonal
+        {
+            get
+            {
+                return ((float)Math.Sqrt(Width * Width + Height * Height));
+            }
+        }
+
+        /// <summary>
         ///     Returns the inversion of this size, which is the height and width swapped.
         /// </summary>
         public CCSize Inverted
@@ -753,6 +765,11 @@ namespace Cocos2D
             return (new CCSize(p.Width + f, p.Height + f));
         }
 
+        public static CCSize operator +(CCSize p, CCSize q)
+        {
+            return (new CCSize(p.Width + q.Width, p.Height + q.Height));
+        }
+
         public static CCSize operator -(CCSize p, float f)
         {
             return (new CCSize(p.Width - f, p.Height - f));
@@ -778,6 +795,14 @@ namespace Cocos2D
             size.Height = point.Y;
             return size;
         }
+
+        public CCRect AsRect
+        {
+            get
+            {
+                return (new CCRect(0, 0, Width, Height));
+            }
+        }
     }
 
 #if !WINDOWS_PHONE && !XBOX && !NETFX_CORE
@@ -789,6 +814,12 @@ namespace Cocos2D
 
         public CCPoint Origin;
         public CCSize Size;
+
+        public CCRect(CCSize sz)
+        {
+            Origin = CCPoint.Zero;
+            Size = sz;
+        }
 
         /// <summary>
         ///     Creates the rectangle at (x,y) -> (width,height)
