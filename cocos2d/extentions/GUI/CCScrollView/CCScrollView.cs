@@ -23,7 +23,7 @@ namespace Cocos2D
      */
 
     public class CCScrollView : CCLayer
-    {
+    { 
         private const float SCROLL_DEACCEL_RATE = 0.95f;
         private const float SCROLL_DEACCEL_DIST = 1.0f;
         private const float BOUNCE_DURATION = 0.15f;
