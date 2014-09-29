@@ -290,10 +290,11 @@ namespace Cocos2D
                     bool bClaimed = false;
                     foreach (CCTargetedTouchHandler pHandler in m_pTargetedHandlers)
                     {
-                        if (bClaimed)
-                        {
-                            break;
-                        }
+                        //MARCO Commented - If prevents touches to propagate! (Example: when button inside list, the list consumes the touch!)
+                        //if (bClaimed)
+                        //{
+                        //    break;
+                        //}
                         var pDelegate = (ICCTargetedTouchDelegate) (pHandler.Delegate);
                         if (!pDelegate.VisibleForTouches)
                         {
