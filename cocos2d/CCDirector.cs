@@ -1078,6 +1078,39 @@ namespace Cocos2D
             m_bSendCleanupToScene = false;
         }
 
+        //MARCO ADDED THIS METHOD
+        public void RemoveScenesFromStack(Type sceneType)
+        {
+            //Remove the scens of a specific type from the stack
+            for (int i = m_pobScenesStack.Count - 1; i >= 0; i--)
+            {
+                if (m_pobScenesStack[i].GetType() == sceneType)
+                {
+                    var current = m_pobScenesStack[i];
+                    if (current.IsRunning)
+                    {
+                        current.OnExitTransitionDidStart();
+                        current.OnExit();
+                    }
+                    current.Cleanup();
+                    m_pobScenesStack.RemoveAt(i);
+                }
+            }
+        }
+
+        //MARCO ADDED THIS METHOD
+        public void AddSceneToStackBeforeCurrent(CCScene scene)
+        {
+            if (m_pobScenesStack.Count > 0)
+            {
+                m_pobScenesStack.Insert(m_pobScenesStack.Count - 1, scene);
+            }
+            else
+            {
+                m_pobScenesStack.Add(scene);
+            }
+        }
+
         protected void SetNextScene()
         {
             bool runningIsTransition = m_pRunningScene != null && m_pRunningScene.IsTransition;// is CCTransitionScene;
