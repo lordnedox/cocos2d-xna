@@ -290,10 +290,11 @@ namespace Cocos2D
                     bool bClaimed = false;
                     foreach (CCTargetedTouchHandler pHandler in m_pTargetedHandlers)
                     {
-                        if (bClaimed)
-                        {
-                            break;
-                        }
+                        //MARCO Commented as it consume all the events even if ConsumesTouches is set to false
+                        //if (bClaimed)
+                        //{
+                        //    break;
+                        //}
                         var pDelegate = (ICCTargetedTouchDelegate) (pHandler.Delegate);
                         if (!pDelegate.VisibleForTouches)
                         {
