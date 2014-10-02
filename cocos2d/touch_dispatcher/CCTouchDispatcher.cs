@@ -290,7 +290,7 @@ namespace Cocos2D
                     bool bClaimed = false;
                     foreach (CCTargetedTouchHandler pHandler in m_pTargetedHandlers)
                     {
-                        //MARCO Commented as it consume all the events even if ConsumesTouches is set to false
+                        //MARCO Commented - If prevents touches to propagate! (Example: when button inside list, the list consumes the touch!)
                         //if (bClaimed)
                         //{
                         //    break;
