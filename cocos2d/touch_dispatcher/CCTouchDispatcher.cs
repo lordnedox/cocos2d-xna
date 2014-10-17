@@ -34,7 +34,7 @@ namespace Cocos2D
         {
             if (m_bDispatchEvents)
             {
-                Touches(touches, (int) CCTouchType.Began);
+                Touches(touches, (int)CCTouchType.Began);
             }
         }
 
@@ -237,48 +237,48 @@ namespace Cocos2D
                 pMutableTouches = pTouches;
             }
 
-//            var sHelper = (CCTouchType) touchType;
-
-            //
+            //            var sHelper = (CCTouchType) touchType;
+            
+            //MARCO Commented - It messes up the Deaccelaration of scrolview, cause it calls TouchMoved 2 times in a row (one with distance, one with zero distance)
             // Process non-began touches that were consumed by a handler and they 
             // need to be focused on their targets
             //
-            if (touchType != CCTouchType.Began)
-            {
-#if WINDOWS_PHONE || XBOX360
-                List<CCTouch> focused = new List<CCTouch>();
-                foreach (CCTouch t in pTouches)
-                {
-                    if (t.Consumer != null)
-                    {
-                        focused.Add(t);
-                    }
-                }
-#else
-                var focused = pTouches.FindAll((t) => t.Consumer != null);
-#endif
-                if (focused != null)
-                {
-                    foreach (CCTouch t in focused)
-                    {
-                        var pDelegate = (ICCTargetedTouchDelegate)(t.Consumer.Delegate);
-                        switch (touchType)
-                        {
-                            case CCTouchType.Moved:
-                                pDelegate.TouchMoved(t);
-                                break;
-                            case CCTouchType.Ended:
-                                pDelegate.TouchEnded(t);
-                                t.Consumer.ClaimedTouches.Remove(t);
-                                break;
-                            case CCTouchType.Cancelled:
-                                pDelegate.TouchCancelled(t);
-                                t.Consumer.ClaimedTouches.Remove(t);
-                                break;
-                        }
-                    }
-                }
-            }
+            //            if (touchType != CCTouchType.Began)
+            //            {
+            //#if WINDOWS_PHONE || XBOX360
+            //                List<CCTouch> focused = new List<CCTouch>();
+            //                foreach (CCTouch t in pTouches)
+            //                {
+            //                    if (t.Consumer != null)
+            //                    {
+            //                        focused.Add(t);
+            //                    }
+            //                }
+            //#else
+            //                var focused = pTouches.FindAll((t) => t.Consumer != null);
+            //#endif
+            //                if (focused != null)
+            //                {
+            //                    foreach (CCTouch t in focused)
+            //                    {
+            //                        var pDelegate = (ICCTargetedTouchDelegate)(t.Consumer.Delegate);
+            //                        switch (touchType)
+            //                        {
+            //                            case CCTouchType.Moved:
+            //                                pDelegate.TouchMoved(t);
+            //                                break;
+            //                            case CCTouchType.Ended:
+            //                                pDelegate.TouchEnded(t);
+            //                                t.Consumer.ClaimedTouches.Remove(t);
+            //                                break;
+            //                            case CCTouchType.Cancelled:
+            //                                pDelegate.TouchCancelled(t);
+            //                                t.Consumer.ClaimedTouches.Remove(t);
+            //                                break;
+            //                        }
+            //                    }
+            //                }
+            //            }
 
             // process the target handlers 1st
             if (uTargetedHandlersCount > 0)
@@ -287,15 +287,16 @@ namespace Cocos2D
 
                 foreach (CCTouch pTouch in pTouches)
                 {
-                    bool bClaimed = false;
                     foreach (CCTargetedTouchHandler pHandler in m_pTargetedHandlers)
                     {
+                        bool bClaimed = false;
+
                         //MARCO Commented - If prevents touches to propagate! (Example: when button inside list, the list consumes the touch!)
                         //if (bClaimed)
                         //{
                         //    break;
                         //}
-                        var pDelegate = (ICCTargetedTouchDelegate) (pHandler.Delegate);
+                        var pDelegate = (ICCTargetedTouchDelegate)(pHandler.Delegate);
                         if (!pDelegate.VisibleForTouches)
                         {
                             continue;
@@ -357,7 +358,7 @@ namespace Cocos2D
 
                 foreach (CCStandardTouchHandler pHandler in m_pStandardHandlers)
                 {
-                    var pDelegate = (ICCStandardTouchDelegate) pHandler.Delegate;
+                    var pDelegate = (ICCStandardTouchDelegate)pHandler.Delegate;
                     if (!pDelegate.VisibleForTouches)
                     {
                         continue;
@@ -397,7 +398,7 @@ namespace Cocos2D
                 m_bToRemove = false;
                 for (int i = 0; i < m_pHandlersToRemove.Count; ++i)
                 {
-                    ForceRemoveDelegate((ICCTouchDelegate) m_pHandlersToRemove[i]);
+                    ForceRemoveDelegate((ICCTouchDelegate)m_pHandlersToRemove[i]);
                 }
                 m_pHandlersToRemove.Clear();
             }
