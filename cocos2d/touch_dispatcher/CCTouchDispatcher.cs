@@ -306,6 +306,9 @@ namespace Cocos2D
                         {
                             bClaimed = pDelegate.TouchBegan(pTouch);
 
+                            // Touches must be claimed here regardless of ConsumesTouches.
+                            // If the touch doesn't get claimed properly then it will not be
+                            // associated with the proper delegate for TouchMoved.
                             if (bClaimed)
                             {
                                 pHandler.ClaimedTouches.Add(pTouch);
