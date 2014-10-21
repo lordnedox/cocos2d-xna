@@ -577,6 +577,7 @@ namespace Cocos2D
                         newY = _container.Position.Y + moveDistance.Y;
 
                         _scrollDistance = moveDistance;
+
                         SetContentOffset(new CCPoint(newX, newY));
                     }
                 }
