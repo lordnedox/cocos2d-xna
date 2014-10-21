@@ -32,13 +32,14 @@ namespace Cocos2D
             get { return m_sAtlasName; }
             set { m_sAtlasName = value; }
         }
-        
-        
+
+
         public List<int> CharacterSet
         {
             set { m_pCharacterSet = value; }
             get { return m_pCharacterSet; }
         }
+
 
         public CCBMFontConfiguration()
         {
