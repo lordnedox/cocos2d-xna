@@ -11,6 +11,10 @@ namespace CocosDenshion
         /// </summary>
         private Dictionary<int, int> _LoopedSounds = new Dictionary<int, int>();
 
+        private static Dictionary<int, CCEffectPlayer> s_List = new Dictionary<int, CCEffectPlayer>();
+        private static CCMusicPlayer s_Music = new CCMusicPlayer();
+        private static CCSimpleAudioEngine _Instance = new CCSimpleAudioEngine();
+
         /// <summary>
         /// The shared sound effect list. The key is the hashcode of the file path.
         /// </summary>
@@ -430,9 +434,6 @@ namespace CocosDenshion
             }
         }
 
-        private static Dictionary<int, CCEffectPlayer> s_List = new Dictionary<int,CCEffectPlayer>();
-        private static CCMusicPlayer s_Music = new CCMusicPlayer();
-        private static CCSimpleAudioEngine _Instance = new CCSimpleAudioEngine();
 
         //MARCO ADDED OPTION TO ADJUST PITCH OF A LOOP
         public void SetPitch(int soundId, float pitch)
