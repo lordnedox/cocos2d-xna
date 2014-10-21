@@ -146,24 +146,19 @@ namespace Cocos2D
 			lock (m_pDictLock) {
 				m_pTextures.TryGetValue (assetName, out texture);
 			}
-            if (texture == null) 
-            {
+			if (texture == null) {
 				texture = new CCTexture2D ();
 
 				if (texture.InitWithFile (fileimage)) {
 					lock (m_pDictLock) {
-						m_pTextures[assetName] = texture;
+						m_pTextures [assetName] = texture;
 					}
 				} else {
 					return null;
 				}
-            }
-            //MARCO Added this ELSE, to re-init disposed textures
-            else if (!texture.IsTextureDefined)
-            {
-                texture.Reinit();
-            }
-                
+			} else if (!texture.IsTextureDefined) {
+				texture.Reinit ();
+			}
 			return texture;
 		}
 
