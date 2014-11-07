@@ -5,6 +5,7 @@ namespace tests.Extensions
 {
 	public class CCControlSceneManager 
 	{
+        public const int kCCControlTestMax = 9;
         
         public const int kCCControlSliderTest = 0;
 		//public const int kCCControlColourPickerTest = 2;
@@ -16,9 +17,6 @@ namespace tests.Extensions
 	    public const int kCCControlButtonTest_Potentiometer = 6;
         public const int kCCControlButtonTest_ColourPicker = 7;
         public const int kCCControlButtonTest_Stepper = 8;
-        public const int kCCControlButtonTest_Issue448 = 9;
-
-        public const int kCCControlTestMax = 10;
 
 
 		public CCControlSceneManager()
@@ -36,8 +34,7 @@ namespace tests.Extensions
             "ControlButtonTest_Inset",
             "ControlButtonTest_Potentiometer",
             "ControlButtonTest_ColourPicker",
-            "ControlButtonTest_Stepper",
-            "ControlButtonTest_Issue448"
+            "ControlButtonTest_Stepper"
 		};
 
 		private static CCControlSceneManager sharedInstance = null;
@@ -102,8 +99,6 @@ namespace tests.Extensions
                     return CCControlColourPickerTest.sceneWithTitle(s_testArray[m_nCurrentControlSceneId]);
                 case kCCControlButtonTest_Stepper:
                     return CCControlStepperTest.sceneWithTitle(s_testArray[m_nCurrentControlSceneId]);
-                case kCCControlButtonTest_Issue448:
-                    return CCControlButtonTest_Issue448.sceneWithTitle(s_testArray[m_nCurrentControlSceneId]);
             }
 			return null;
 		}
