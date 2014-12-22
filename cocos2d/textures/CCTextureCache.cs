@@ -11,7 +11,7 @@ namespace Cocos2D
     {
         struct AsyncStruct
         {
-            public string  FileName;
+            public string FileName;
             public Action<CCTexture2D> Action;
         };
 
@@ -24,7 +24,7 @@ namespace Cocos2D
         private readonly object m_pDictLock = new object();
         protected Dictionary<string, CCTexture2D> m_pTextures = new Dictionary<string, CCTexture2D>();
 
-        ~CCTextureCache() 
+        ~CCTextureCache()
         {
             Dispose();
         }
@@ -52,7 +52,7 @@ namespace Cocos2D
                         try
                         {
                             var texture = AddImage(image.FileName);
-						CCLog.Log("Loaded texture: {0}", image.FileName);
+                            CCLog.Log("Loaded texture: {0}", image.FileName);
                             if (image.Action != null)
                             {
                                 CCDirector.SharedDirector.Scheduler.ScheduleSelector(
@@ -62,7 +62,7 @@ namespace Cocos2D
                         }
                         catch (Exception ex)
                         {
-						    CCLog.Log("Failed to load image {0}", image.FileName);
+                            CCLog.Log("Failed to load image {0}", image.FileName);
                             CCLog.Log(ex.ToString());
                         }
                     }
@@ -76,7 +76,7 @@ namespace Cocos2D
 
         public static CCTextureCache SharedTextureCache
         {
-            get 
+            get
             {
                 if (s_sharedTextureCache == null)
                 {
@@ -111,7 +111,7 @@ namespace Cocos2D
 
             lock (_asyncLoadedImages)
             {
-                _asyncLoadedImages.Add(new AsyncStruct() {FileName = fileimage, Action = action});
+                _asyncLoadedImages.Add(new AsyncStruct() { FileName = fileimage, Action = action });
             }
 
             if (_task == null)
@@ -136,31 +136,39 @@ namespace Cocos2D
         }
 
         public CCTexture2D AddImage(string fileimage)
-		{
-			Debug.Assert (!String.IsNullOrEmpty (fileimage), "TextureCache: fileimage MUST not be NULL");
+        {
+            Debug.Assert(!String.IsNullOrEmpty(fileimage), "TextureCache: fileimage MUST not be NULL");
 
-			CCTexture2D texture = null;
+            CCTexture2D texture = null;
 
             var assetName = CreateAssetKey(fileimage);
 
-			lock (m_pDictLock) {
-				m_pTextures.TryGetValue (assetName, out texture);
-			}
-			if (texture == null) {
-				texture = new CCTexture2D ();
+            lock (m_pDictLock)
+            {
+                m_pTextures.TryGetValue(assetName, out texture);
+            }
+            if (texture == null)
+            {
+                texture = new CCTexture2D();
 
-				if (texture.InitWithFile (fileimage)) {
-					lock (m_pDictLock) {
-						m_pTextures [assetName] = texture;
-					}
-				} else {
-					return null;
-				}
-			} else if (!texture.IsTextureDefined) {
-				texture.Reinit ();
-			}
-			return texture;
-		}
+                if (texture.InitWithFile(fileimage))
+                {
+                    lock (m_pDictLock)
+                    {
+                        m_pTextures[assetName] = texture;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else if (!texture.IsTextureDefined)
+            {
+                texture.Reinit();
+            }
+            return texture;
+        }
 
         public CCTexture2D AddImage(byte[] data, string assetName, SurfaceFormat format)
         {
@@ -171,7 +179,7 @@ namespace Cocos2D
                 if (!m_pTextures.TryGetValue(assetName, out texture))
                 {
                     texture = new CCTexture2D();
-                    
+
                     if (texture.InitWithData(data, format))
                     {
                         m_pTextures.Add(assetName, texture);
@@ -197,8 +205,8 @@ namespace Cocos2D
             return AddRawImage(data, width, height, assetName, format, premultiplied, mipMap, new CCSize(width, height));
         }
 
-         public CCTexture2D AddRawImage<T>(T[] data, int width, int height, string assetName, SurfaceFormat format,
-                                          bool premultiplied, bool mipMap, CCSize contentSize) where T : struct
+        public CCTexture2D AddRawImage<T>(T[] data, int width, int height, string assetName, SurfaceFormat format,
+                                         bool premultiplied, bool mipMap, CCSize contentSize) where T : struct
         {
             CCTexture2D texture;
 
@@ -207,7 +215,7 @@ namespace Cocos2D
                 if (!m_pTextures.TryGetValue(assetName, out texture))
                 {
                     texture = new CCTexture2D();
-                    
+
                     if (texture.InitWithRawData(data, format, width, height, premultiplied, mipMap, contentSize))
                     {
                         m_pTextures.Add(assetName, texture);
@@ -221,13 +229,13 @@ namespace Cocos2D
             return texture;
         }
 
-		public CCTexture2D this[string key]
-		{
-			get 
-			{
-				return TextureForKey (key);
-			}
-		}
+        public CCTexture2D this[string key]
+        {
+            get
+            {
+                return TextureForKey(key);
+            }
+        }
 
         public CCTexture2D TextureForKey(string key)
         {
@@ -269,7 +277,7 @@ namespace Cocos2D
                 {
                     if (pair.Value.IsAlive)
                     {
-                        m_pTextures.Add(pair.Key, (CCTexture2D) pair.Value.Target);
+                        m_pTextures.Add(pair.Key, (CCTexture2D)pair.Value.Target);
                     }
                 }
             }
@@ -340,6 +348,18 @@ namespace Cocos2D
                 {
                     t.Dispose();
                 }
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                if (m_pTextures != null)
+                {
+                    return m_pTextures.Count;
+                }
+                return 0;
             }
         }
     }
